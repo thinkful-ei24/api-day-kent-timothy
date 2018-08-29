@@ -3,10 +3,12 @@ const api = (function() {
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/kent-timothy';
 
   const getItems = function(callback) {
-    callback('api module works!');
+    $.getJSON(BASE_URL + '/items', callback);
   };
 
-  console.log(getItems(callback));
+  //proceed to problem 2?
+  //want me to do this problem?
+  
   return {
     getItems
   };
