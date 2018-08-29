@@ -6,10 +6,27 @@ const api = (function() {
     $.getJSON(BASE_URL + '/items', callback);
   };
 
+  const createItem = function(name, callback) {
+    const newItem = JSON.stringify({
+      name: name,
+    });
+
+    $.ajax(
+      {
+        url: BASE_URL + '/items',
+        method: 'POST',
+        contentType: 'application/json',
+        data: newItem,
+        success: callback
+      }
+    )
+  };
+
   //proceed to problem 2?
   //want me to do this problem?
   
   return {
-    getItems
+    getItems,
+    createItem
   };
 }());
