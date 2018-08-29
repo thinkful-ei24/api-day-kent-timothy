@@ -41,7 +41,7 @@ const shoppingList = (function(){
   function generateErrorMessage(){
     console.log('generateErrorMessage is running');
     const errorMessageString = !store.errorMessage ? '' : 
-    `
+      `
       <p>${store.errorMessage}</p>
     `;
     console.log(errorMessageString);
@@ -84,7 +84,7 @@ const shoppingList = (function(){
         render();
       },
       errorCallback   
-    );
+      );
     });
   }
   
@@ -120,7 +120,7 @@ const shoppingList = (function(){
         render();
       },
       errorCallback
-    );
+      );
     });
   }
   

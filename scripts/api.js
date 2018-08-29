@@ -42,7 +42,8 @@ const api = (function() {
     $.ajax({
       url: `${BASE_URL}/items/${id}`,
       method: 'DELETE',
-      success: callback
+      success: successCallback,
+      error: errorCallback
     });
   };
 
