@@ -2,13 +2,13 @@
 
 // eslint-disable-next-line no-unused-vars
 const store = (function(){
-  const addItem = function(name) {
-    try {
-      Item.validateName(name);
-      this.items.push(Item.create(name));
-    } catch(e) {
-      console.log(e.message);
-    }
+
+  const items = [];
+
+  const addItem = function(item){
+    console.log(item);
+    this.items.push(item);
+    console.log(items);
   };
 
   const findById = function(id) {
@@ -43,7 +43,7 @@ const store = (function(){
   };
 
   return {
-    items: [],
+    items: items,
     hideCheckedItems: false,
     searchTerm: '',
 

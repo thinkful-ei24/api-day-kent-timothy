@@ -1,11 +1,19 @@
 /* global shoppingList, store, api */
 
-$(document).ready(function() {
+$(function() {
+    
+
+  //make sense so far?
   shoppingList.bindEventListeners();
   shoppingList.render();
+  api.getItems((items) => {
+    items.forEach((item) => store.addItem(item));
+    shoppingList.render();
+  });
+  
+
 });
 
-store.items.push(Item.create('apples'));
 
 api.getItems(function(data) {
   console.log(data);
