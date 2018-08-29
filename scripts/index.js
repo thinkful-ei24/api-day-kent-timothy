@@ -11,8 +11,3 @@ $(function() {
   
 
 });
-
-
-api.getItems(function(data) {
-  console.log(data);
-});
