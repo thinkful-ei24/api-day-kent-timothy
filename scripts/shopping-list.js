@@ -76,11 +76,17 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      store.findAndToggleChecked(id);
-      render();
+      const checked = !store.items.find(item => item.id === id).checked;
+      const newData = {checked: checked};
+      api.updateItem(id, newData,  
+        response => { 
+          store.findAndUpdate(id, newData); 
+          render(); 
+        }
+      );
     });
   }
-  
+
   function handleDeleteItemClicked() {
     // like in `handleItemCheckClicked`, we use event delegation
     $('.js-shopping-list').on('click', '.js-item-delete', event => {
@@ -97,9 +103,16 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('submit', '.js-edit-item', event => {
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
-      const itemName = $(event.currentTarget).find('.shopping-item').val();
-      store.findAndUpdateName(id, itemName);
-      render();
+      const newName = $(event.currentTarget).find('.shopping-item').val();
+      const newData = {
+        name: newName
+      };
+      api.updateItem(id, newData, 
+        (response) => {
+          store.findAndUpdate(id, newData);
+          render();
+        }
+      );
     });
   }
   
