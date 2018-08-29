@@ -2,8 +2,6 @@
 
 $(function() {
     
-
-  //make sense so far?
   shoppingList.bindEventListeners();
   shoppingList.render();
   api.getItems((items) => {
