@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 const store = (function(){
 
-  const items = [];
+  let items = [];
 
   const addItem = function(item){
     this.items.push(item);

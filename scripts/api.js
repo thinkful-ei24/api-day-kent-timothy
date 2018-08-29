@@ -20,7 +20,7 @@ const api = (function() {
         data: newItem,
         success: callback
       }
-    )
+    );
   };
 
   const updateItem = function(id, updateData, callback){
@@ -32,12 +32,21 @@ const api = (function() {
       contentType: 'application/json',
       data: JSON.stringify(updateData),
       success: callback
-    })
+    });
+  };
+
+  const deleteItem = function(id, callback) {
+    $.ajax({
+      url: `${BASE_URL}/items/${id}`,
+      method: 'DELETE',
+      success: callback
+    });
   };
 
   return {
     getItems,
     createItem,
-    updateItem
+    updateItem,
+    deleteItem
   };
 }());
