@@ -4,6 +4,7 @@
 const store = (function(){
 
   let items = [];
+  let errorMessage = null; 
 
   const addItem = function(item){
     this.items.push(item);
@@ -33,10 +34,19 @@ const store = (function(){
     this.searchTerm = term;
   };
 
+  const setErrorMessage = function(error){
+    if(error === null) {
+      this.errorMessage = null;
+    } else {
+    this.errorMessage = error.responseJSON.message;
+    }
+  };
+
   return {
     items: items,
     hideCheckedItems: false,
     searchTerm: '',
+    errorMessage,
 
     addItem,
     findById,
@@ -44,6 +54,7 @@ const store = (function(){
     findAndUpdate,
     toggleCheckedFilter,
     setSearchTerm,
+    setErrorMessage
   };
   
 }());

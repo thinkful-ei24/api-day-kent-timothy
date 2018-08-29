@@ -6,7 +6,7 @@ const api = (function() {
     $.getJSON(BASE_URL + '/items', callback);
   };
 
-  const createItem = function(name, callback) {
+  const createItem = function(name, successCallback, errorCallback) {
     const newItem = JSON.stringify({
       name: name,
     });
@@ -18,12 +18,14 @@ const api = (function() {
         method: 'POST',
         contentType: 'application/json',
         data: newItem,
-        success: callback
+        success: successCallback,
+        error: errorCallback //oh, i added the failure property to wrong api method
       }
     );
   };
 
-  const updateItem = function(id, updateData, callback){
+
+  const updateItem = function(id, updateData, sucessCallback, errorCallBack){
   
     
     $.ajax({
@@ -31,11 +33,12 @@ const api = (function() {
       method: 'PATCH',
       contentType: 'application/json',
       data: JSON.stringify(updateData),
-      success: callback
+      success: sucessCallback,
+      error: errorCallBack //do i need to write a new function to handle error?
     });
   };
 
-  const deleteItem = function(id, callback) {
+  const deleteItem = function(id, successCallback, errorCallback) {
     $.ajax({
       url: `${BASE_URL}/items/${id}`,
       method: 'DELETE',

@@ -13,7 +13,7 @@ const shoppingList = (function(){
       `;
     }
   
-    return `
+    return ` 
       <li class="js-item-element" data-item-id="${item.id}">
         ${itemTitle}
         <div class="shopping-item-controls">
@@ -28,11 +28,27 @@ const shoppingList = (function(){
   }
   
   
+  function errorCallback(error){
+    store.setErrorMessage(error);
+    render(); 
+  }
+
   function generateShoppingItemsString(shoppingList) {
     const items = shoppingList.map((item) => generateItemElement(item));
     return items.join('');
   }
   
+  function generateErrorMessage(){
+    console.log('generateErrorMessage is running');
+    const errorMessageString = !store.errorMessage ? '' : 
+    `
+      <p>${store.errorMessage}</p>
+    `;
+    console.log(errorMessageString);
+    return errorMessageString;
+  }
+
+  //want me to push?
   
   function render() {
     // Filter item list if store prop is true by item.checked === false
@@ -49,8 +65,11 @@ const shoppingList = (function(){
     // render the shopping list in the DOM
     console.log('`render` ran');
     const shoppingListItemsString = generateShoppingItemsString(items);
+    const errorMessageString = generateErrorMessage();
   
     // insert that HTML into the DOM
+    $('.error-message').html(errorMessageString); 
+    store.setErrorMessage(null); 
     $('.js-shopping-list').html(shoppingListItemsString);
   }
   
@@ -63,7 +82,9 @@ const shoppingList = (function(){
       api.createItem(newItemName, function(newItem) {
         store.addItem(newItem);
         render();
-      });
+      },
+      errorCallback   
+    );
     });
   }
   
@@ -82,7 +103,8 @@ const shoppingList = (function(){
         response => { 
           store.findAndUpdate(id, newData); 
           render(); 
-        }
+        },
+        errorCallback
       );
     });
   }
@@ -96,7 +118,9 @@ const shoppingList = (function(){
       api.deleteItem(id, (response) => {
         store.findAndDelete(id);
         render();
-      });
+      },
+      errorCallback
+    );
     });
   }
   
@@ -112,7 +136,8 @@ const shoppingList = (function(){
         (response) => {
           store.findAndUpdate(id, newData);
           render();
-        }
+        },
+        errorCallback
       );
     });
   }
@@ -131,7 +156,7 @@ const shoppingList = (function(){
       render();
     });
   }
-  
+
   function bindEventListeners() {
     handleNewItemSubmit();
     handleItemCheckClicked();
